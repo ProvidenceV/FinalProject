@@ -1,7 +1,9 @@
 ﻿using FinalProject.DataDB;
+using FinalProject.Dtos;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace FinalProject.Controllers
@@ -35,8 +37,15 @@ namespace FinalProject.Controllers
         //Create
         [HttpPost]
         [Route("api/personcontroller/addPerson")]
-        public IActionResult AddPerson(Person person)
+        public IActionResult AddPerson(PersonDto personDto)
         {
+            if (!ModelState.IsValid)
+            {
+                var errorMessages = string.Join("\n", ModelState.SelectMany(x => x.Value.Errors));
+                return BadRequest(errorMessages);
+            }
+
+            Person person = PersonDto.GetPerson(personDto);
             _personData.AddPerson(person);
 
             return Created(HttpContext.Request + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + person.FullName, person);

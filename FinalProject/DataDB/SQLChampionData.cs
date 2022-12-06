@@ -41,13 +41,13 @@ namespace FinalProject.DataDB
 
         public Champion UpdateChampion(Champion champion)
         {
-            var existingChampion = _championData.Champions.Find(champion.ChampionName);
-            if (existingChampion != null)
-            {
-                existingChampion.ChampionName = champion.ChampionName;
-                _championData.Champions.Update(existingChampion);
-                _championData.SaveChanges();
-            }
+            //var existingChampion = _championData.Champions.Find(champion.ChampionName);
+            //if (existingChampion != null)
+            //{
+            //existingChampion.ChampionName = champion.ChampionName;
+            _championData.Champions.Update(champion);
+            _championData.SaveChanges();
+            //}
             return champion;
         }
     }

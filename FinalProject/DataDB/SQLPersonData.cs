@@ -17,6 +17,8 @@ namespace FinalProject.DataDB
             _personContext.People.Add(person);
             _personContext.SaveChanges();
             return person;
+
+
         }
 
         public void DeletePerson(Person person)
